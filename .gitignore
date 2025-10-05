@@ -1,0 +1,111 @@
+# ------------------------------
+# Python
+# ------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+wheels/
+*.manifest
+*.spec
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ------------------------------
+# Environment & secrets
+# ------------------------------
+# dotenv files (contains secrets)
+# *.env
+# !.env.example
+
+# Hugging Face / API tokens
+huggingface/
+.token
+.huggingface/
+.hf_cache/
+
+# ------------------------------
+# FastAPI / Uvicorn / Logs
+# ------------------------------
+*.log
+*.pid
+*.db
+*.sqlite3
+*.sqlite
+
+# ------------------------------
+# IDE / Editor / OS files
+# ------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ------------------------------
+# Docker / Build
+# ------------------------------
+# Docker build cache
+docker-compose.override.yml
+*.tar
+*.img
+*.bak
+*.old
+
+# Ignore compiled Python bytecode in Docker layers
+__pycache__/
+
+# ------------------------------
+# Project specific
+# ------------------------------
+# Model and cache directories
+model_files/
+tmp/
+temp/
+cache/
+app/__pycache__/
+
+# Uploaded or temporary files
+uploads/
+*.wav
+*.mp3
+*.mp4
+*.mkv
+*.avi
+*.flv
+*.wmv
+
+# MoviePy cache
+moviepy_temp/
+
+# ------------------------------
+# Jupyter / Colab
+# ------------------------------
+.ipynb_checkpoints/
+*.ipynb
+
+# ------------------------------
+# Test / Coverage
+# ------------------------------
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+pytest_cache/
+.pytest_cache/
+junit.xml
+coverage.xml
