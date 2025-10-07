@@ -28,8 +28,8 @@ venv.bak/
 # Environment & secrets
 # ------------------------------
 # dotenv files (contains secrets)
-# *.env
-# !.env.example
+*.env
+!.env.example
 
 # Hugging Face / API tokens
 huggingface/
