@@ -30,6 +30,7 @@ venv.bak/
 # dotenv files (contains secrets)
 *.env
 !.env.example
+.env
 
 # Hugging Face / API tokens
 huggingface/
