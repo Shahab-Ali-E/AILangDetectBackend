@@ -1,18 +1,22 @@
-# Vercel ignore file
+# Vercel ignore file - optimized for memory efficiency
 # Exclude unnecessary files from deployment
 
-# Python cache
+# Python cache and compiled files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
 *.so
+*.egg-info/
+build/
+dist/
 
 # Virtual environments
 venv/
 env/
 ENV/
+.venv/
 
 # IDE files
 .vscode/
@@ -54,3 +58,21 @@ logs/
 # Temporary files
 *.tmp
 *.temp
+
+# Large model files that should be downloaded at runtime
+model_files/
+*.pth
+*.pkl
+*.bin
+*.safetensors
+
+# Build artifacts
+*.egg
+*.whl
+
+# Node modules (if any)
+node_modules/
+
+# Backup files
+*.bak
+*.backup

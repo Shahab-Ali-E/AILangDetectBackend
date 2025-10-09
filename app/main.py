@@ -2,13 +2,20 @@
 from fastapi import FastAPI, UploadFile, File
 import os
 import tempfile
-from .model import load_model
+
+# Try to use Vercel-optimized model loading, fallback to regular loading
+try:
+    from .model_vercel import load_model_vercel
+    model, scaler, feature_extractor, wav2vec, device = load_model_vercel()
+    print("Using Vercel-optimized model loading")
+except ImportError:
+    from .model import load_model
+    model, scaler, feature_extractor, wav2vec, device = load_model()
+    print("Using standard model loading")
+
 from .utils import predict_audio_or_video
 
 app = FastAPI(title="Urdu Pashto Language Classifier")
-
-# Load model once (this will now fail early with a helpful error if env is missing)
-model, scaler, feature_extractor, wav2vec, device = load_model()
 
 @app.get("/")
 def home():
