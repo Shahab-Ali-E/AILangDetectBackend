@@ -22,12 +22,5 @@
         "maxDuration": 60,
         "memory": 3008
       }
-    },
-    "env": {
-      "MODEL_CACHE": "./model_files",
-      "DEVICE": "cpu",
-      "TORCH_HOME": "/tmp/torch_cache",
-      "TRANSFORMERS_CACHE": "/tmp/transformers_cache",
-      "HF_HOME": "/tmp/huggingface_cache"
     }
   }
