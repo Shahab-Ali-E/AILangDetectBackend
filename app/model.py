@@ -41,22 +41,31 @@ def load_model():
             "Check your .env or Docker environment variables."
         )
 
-    try:
-        classifier_path = hf_hub_download(
-            repo_id=settings.MODEL_REPO,
-            filename=settings.CLASSIFIER_FILE,
-            cache_dir=settings.MODEL_CACHE
-        )
-        scaler_path = hf_hub_download(
-            repo_id=settings.MODEL_REPO,
-            filename=settings.SCALER_FILE,
-            cache_dir=settings.MODEL_CACHE
-        )
-    except Exception as e:
-        raise RuntimeError(
-            f"Failed to download model files from Hugging Face Hub: {e}. "
-            f"Check your internet connection and model repository access."
-        )
+    # Use local model files if they exist, otherwise download from Hugging Face Hub
+    classifier_path = os.path.join(settings.MODEL_CACHE, "models--Esahe--Urdu_Pashto_Model", "snapshots", "94aa4d83598350edc1c5f2fd853346795e454ba5", settings.CLASSIFIER_FILE)
+    scaler_path = os.path.join(settings.MODEL_CACHE, "models--Esahe--Urdu_Pashto_Model", "snapshots", "94aa4d83598350edc1c5f2fd853346795e454ba5", settings.SCALER_FILE)
+    
+    # Check if local files exist
+    if not os.path.exists(classifier_path) or not os.path.exists(scaler_path):
+        print("Local model files not found, downloading from Hugging Face Hub...")
+        try:
+            classifier_path = hf_hub_download(
+                repo_id=settings.MODEL_REPO,
+                filename=settings.CLASSIFIER_FILE,
+                cache_dir=settings.MODEL_CACHE
+            )
+            scaler_path = hf_hub_download(
+                repo_id=settings.MODEL_REPO,
+                filename=settings.SCALER_FILE,
+                cache_dir=settings.MODEL_CACHE
+            )
+        except Exception as e:
+            raise RuntimeError(
+                f"Failed to download model files from Hugging Face Hub: {e}. "
+                f"Check your internet connection and model repository access."
+            )
+    else:
+        print(f"Using local model files: {classifier_path}, {scaler_path}")
 
     # load model/scaler/backbone as before...
     model = EmbeddingClassifier(input_dim=768).to(device)
@@ -70,6 +79,8 @@ def load_model():
 
     scaler = joblib.load(scaler_path)
 
+    # For Wav2Vec2, we need to download from Hugging Face Hub as it's not included in local files
+    print("Loading Wav2Vec2 model from Hugging Face Hub...")
     feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(settings.MODEL_NAME)
     wav2vec = Wav2Vec2Model.from_pretrained(settings.MODEL_NAME).to(device).eval()
 

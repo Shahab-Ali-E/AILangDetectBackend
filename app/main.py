@@ -18,7 +18,7 @@ def home():
 async def predict(file: UploadFile = File(...)):
     suffix = os.path.splitext(file.filename)[1] or ".wav"
     # create a temp file in the configured temp directory
-    temp_dir = os.getenv("TEMP_DIR", "/tmp")
+    temp_dir = os.getenv("TEMP_DIR", "/app/temp")
     os.makedirs(temp_dir, exist_ok=True)
     
     with tempfile.NamedTemporaryFile(delete=False, suffix=suffix, dir=temp_dir) as tmp:
@@ -41,3 +41,8 @@ async def predict(file: UploadFile = File(...)):
             os.remove(upload_path)
         except Exception:
             pass
+
+# This is important for Vercel
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
